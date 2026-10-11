@@ -56,4 +56,54 @@ A two-sided marketplace where every promise made to a user is a deadline with a 
 
 ---
 
+## Multi-strategy automation engine — rules-first, simulation by default
+
+A set of independent rule-based agents and a research pipeline that run in a simulated environment by default, with safety limits enforced in code rather than by convention.
+
+**What it does**
+- Runs several independent strategies on different time horizons, each with its own configuration
+- Accepts externally generated signals and acts on them only after an explicit human approval step
+- Scores incoming data for unusual patterns, filters out false positives, and emits capped, deduplicated signals
+- Provides a local, read-only monitoring dashboard
+
+**Engineering highlights**
+- **Safe by default:** simulation is the default everywhere; leaving it requires two separate explicit settings
+- **Guardrails that cannot be disabled:** loss circuit breakers, exposure caps and per-action limits that no configuration can switch off
+- **Ownership boundaries:** every action is tagged to the agent that created it, and each agent manages only its own records
+- **Isolation:** separate credentials and configuration per agent; the research pipeline has no ability to act
+- **Contract-validated handoffs:** schema-checked messages with expiry and veto rules; anything invalid is rejected outright
+- **Self-healing operations:** idempotent start scripts rebuild the environment after a host reset and re-adopt existing state
+- **Testable offline:** dry-run modes and fixtures, with automated tests that need no network or keys
+- **Secrets hygiene:** credentials only in untracked environment files, with a secret scan before every publish
+
+**Stack:** Python · pandas · NumPy · pytest
+
+*Code: private. Happy to walk through the architecture on request.*
+
+---
+
+## Change-controlled delivery toolkit — static site and approval-gated operations
+
+A lightweight system that pairs a self-contained static website with a ticketed workflow in which every change is approved, evidenced and logged.
+
+**What it does**
+- Ships a bilingual website as one self-contained file, with no build step
+- Tracks every change as a ticket with risk level, approver, evidence and status in an append-only log
+- Gates sensitive changes behind written owner approval and a freeze policy
+- Keeps payment and account ownership with the owner; the operator never handles payment data
+
+**Engineering highlights**
+- **Approval-gated change control:** risk tiers, written sign-off and a stop rule until a problem's source is confirmed
+- **Zero-dependency site:** inlined assets, structured data and a client-side language toggle, with no server-side code
+- **Least-privilege access:** operator roles scoped to each task, with ownership kept by the account holder
+- **Privacy and transparency by design:** a data-protection checklist and an on-site notice that content is AI-assisted and human-approved
+- **Evidence without exposure:** proof screenshots kept out of version control
+- **Measurement:** analytics instrumentation so assumptions can be checked against real data
+
+**Stack:** HTML · CSS · vanilla JavaScript · JSON-LD · Markdown
+
+*Code: private. Happy to walk through the architecture on request.*
+
+---
+
 *More projects will be added here.*
